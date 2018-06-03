@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get LTL Rate</title>
+</head>
+
+<body>
+
+    <style>
+        tr, td, th {
+            border: 1px solid;
+            width: 20px;
+        }
+    </style>
+
+    <div>
+        <form action="#@!$" method="post" enctype="multipart/form-data">
+            {%  csrf_token %}
+
+            Select Tariff:
+            <select name="tariffName">
+                <option value="LITECZ02">LITECZ02</option><br><br>
+            </select><br>
+
+            Select Tariff Date:
+            <select name="shipmentDateCCYYMMDD">
+                <option value="19990101">19990101</option>
+                <option value="19991001">19991001</option>
+                <option value="20060101">20060101</option>
+                <option value="null">null</option>
+            </select><br> Upload Your File (Only xls, xlsx or csv): <input type="file" name="my_excel" id="csv" required="True" accept=".xls,.xlsx,.csv"><br><br>
+
+
+            <input type="submit" value="Submit"><br><br>
+        </form>
+    </div>
+
+    {% if results == 'True' %}
+        <div>This is the data from the excel sheet</div>
+        <table style="border: 1px solid black;border-collapse: collapse;">
+            <thead>
+                <tr style="border: 1px solid black;border-collapse: collapse;">
+                    <th style="border: 1px solid black;padding: 5px;">originPostalCode</th>
+                    <th style="border: 1px solid black;padding: 5px;">destinationPostalCode</th>
+                    <th style="border: 1px solid black;padding: 5px;">weight</th>
+                    <th style="border: 1px solid black;padding: 5px;">class</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {%  include 'importer/partials/tables.html' %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+    {% if message %}
+        <div>{{message}}</div>
+    {%  endif %}
+
+
+</body>
+</html>
