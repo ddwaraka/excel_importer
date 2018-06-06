@@ -24,9 +24,13 @@ def importer_home(request):
                 sheet = workbook.sheet_by_index(0)
                 template = open(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'templates/importer/partials/tables.html'), 'w')
 
-                for x in range(1, sheet.nrows):
+                for x in range(1, sheet.nrows-1):
 
                     template.write('<tr>\n')
+
+                    template.write('<td>\n')
+                    template.write(str(x))
+                    template.write('</td>\n')
 
                     template.write('<td>')
                     template.write(str(sheet.col(2)[x].value).partition('.')[0])
